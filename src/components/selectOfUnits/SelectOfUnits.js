@@ -1,27 +1,20 @@
-import { useState, useEffect } from "react";
 import OptionOfUnits from "../optionOfUnits/OptionOfUnits";
 
-import { useHttp } from "../../utils/useHttp";
-
-const SelectListOfUnits = (props) => {
-	const { name, selectedValue, setValue } = props;
-	const request = useHttp();
-	const [arrayOfMetricUnit, setArrayOfMetricUnit] = useState([]);
-	const [arrayOfImperialUnit, setArrayOfImperialUnit] = useState([]);
-
-	useEffect(() => {
-		request("http://localhost:3001/metric").then((data) =>
-			setArrayOfMetricUnit(data)
-		);
-		request("http://localhost:3001/imperial").then((data) =>
-			setArrayOfImperialUnit(data)
-		);
-	}, []);
+const SelectListOfUnits = ({
+	name,
+	arrayOfMetricUnit,
+	arrayOfImperialUnit,
+	selectedValue,
+	setValue,
+	selectedOption,
+}) => {
 	return (
 		<select
+			className="form-select"
 			onChange={(e) => setValue(e.target.value)}
 			name={name}
 			id={name}
+			value={selectedOption}
 		>
 			<OptionOfUnits
 				arrayOfUnit={arrayOfMetricUnit}

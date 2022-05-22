@@ -1,5 +1,4 @@
-const OptionOfUnits = (props) => {
-	const { arrayOfUnit, groupName, selectedValue } = props;
+const OptionOfUnits = ({ arrayOfUnit, groupName, selectedValue }) => {
 	const filterForArray = (arr) => {
 		const filteredArray = arr.filter((item) => {
 			return item.unitName != selectedValue;

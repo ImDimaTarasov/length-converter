@@ -1,47 +1,22 @@
 import { useState } from "react";
-import "./App.css";
-import SelectListOfUnits from "./components/selectOfUnits/SelectOfUnits";
+
+import Converter from "./components/converter/Converter";
 import ListOfResults from "./components/listOfResults/ListOfResults";
 
+import "./App.css";
+
 const App = () => {
-	//  https://www.npmjs.com/package/convert-units
-	const convert = require("convert-units");
-
-	const [valueFrom, setValueFrom] = useState("m");
-	const [valueTo, setValueTo] = useState("cm");
-	const [valueFromInput, setValueFromInput] = useState(0);
-
-	const [results, setResults] = useState([]);
-
-	const handleSubmit = () => {
-		const resData = {
-			from: valueFrom,
-			to: valueTo,
-			number: valueFromInput,
-			result: convert(valueFromInput).from(valueFrom).to(valueTo),
-		};
-
-		setResults(() => [...results, resData]);
-	};
+	const [conversionResult, setConversionResult] = useState({});
 	return (
 		<div className="App">
-			<input
-				type="number"
-				value={valueFromInput}
-				onChange={(e) => setValueFromInput(e.target.value)}
+			<h1>LENGTH CONVERTER</h1>
+			<Converter
+				setConversionResult={setConversionResult}
+				conversionResult={conversionResult}
 			/>
-			<SelectListOfUnits
-				name="unit_from"
-				setValue={setValueFrom}
-				selectedValue={valueTo}
-			/>
-			<SelectListOfUnits
-				name="unit_to"
-				setValue={setValueTo}
-				selectedValue={valueFrom}
-			/>
-			<button onClick={handleSubmit}>convert</button>
-			<ListOfResults arrayOfResults={results} />
+			<h3>RESULTS</h3>
+			<ListOfResults conversionResult={conversionResult} />
+			
 		</div>
 	);
 };
