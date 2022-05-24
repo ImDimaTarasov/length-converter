@@ -1,27 +1,14 @@
-import { useState, useEffect } from "react";
-
 const ListOfResults = ({ conversionResult }) => {
-	const [result, setResult] = useState([]);
-
-	useEffect(() => {
-		checkConversionResult();
-	}, [conversionResult]);
-
-	const checkConversionResult = () => {
-		if (Object.keys(conversionResult).length != 0) {
-			setResult(() => [...deleteFirstElem(result), conversionResult]);
-		}
-	};
 	const deleteFirstElem = (array) => {
 		if (array.length > 9) {
-			const newArr = array.filter((item) => result[0] != item);
+			const newArr = array.slice(-10);
 			return newArr;
 		}
 		return array;
 	};
-	const renderListOfResult = () => {
-		if (result && result.length > 0) {
-			const list = result.map((item, i) => {
+	const renderListOfResult = (array) => {
+		if (array && array.length > 0) {
+			const list = deleteFirstElem(array).map((item, i) => {
 				return (
 					<li key={i} className="list-group-item">
 						{item.number} {item.from} converts to {item.result}{" "}
@@ -32,8 +19,16 @@ const ListOfResults = ({ conversionResult }) => {
 			return list;
 		}
 	};
-	const elem = renderListOfResult();
-	return <ul style={{minHeight: "500px"}} className="list-group w-50">{elem}</ul>;
+	const elements = renderListOfResult(conversionResult);
+	if (conversionResult.length === 0) {
+		return <div>Please convert</div>;
+	}
+	return (
+		<>
+			<h3>RESULTS</h3>
+			<ul className="list-group w-50">{elements}</ul>
+		</>
+	);
 };
 
 export default ListOfResults;

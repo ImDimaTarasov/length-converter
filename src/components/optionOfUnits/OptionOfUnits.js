@@ -1,7 +1,7 @@
 const OptionOfUnits = ({ arrayOfUnit, groupName, selectedValue }) => {
 	const filterForArray = (arr) => {
 		const filteredArray = arr.filter((item) => {
-			return item.unitName != selectedValue;
+			return item.unitName !== selectedValue;
 		});
 		return filteredArray;
 	};

@@ -2,27 +2,26 @@ import OptionOfUnits from "../optionOfUnits/OptionOfUnits";
 
 const SelectListOfUnits = ({
 	name,
-	arrayOfMetricUnit,
-	arrayOfImperialUnit,
+	arrayOfUnits,
 	selectedValue,
-	setValue,
 	selectedOption,
+	onSetValue,
 }) => {
 	return (
 		<select
 			className="form-select"
-			onChange={(e) => setValue(e.target.value)}
+			onChange={(e) => onSetValue(e.target.value)}
 			name={name}
 			id={name}
 			value={selectedOption}
 		>
 			<OptionOfUnits
-				arrayOfUnit={arrayOfMetricUnit}
+				arrayOfUnit={arrayOfUnits[0].metric}
 				groupName="Metryczny"
 				selectedValue={selectedValue}
 			/>
 			<OptionOfUnits
-				arrayOfUnit={arrayOfImperialUnit}
+				arrayOfUnit={arrayOfUnits[0].imperial}
 				groupName="Imperalny"
 				selectedValue={selectedValue}
 			/>
